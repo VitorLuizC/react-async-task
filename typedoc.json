@@ -1,7 +1,0 @@
-{
-  "out": "./docs",
-  "name": "React.js Async Task",
-  "theme": "markdown",
-  "readme": "none",
-  "tsconfig": "./tsconfig.bundle.json"
-}
