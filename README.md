@@ -1,7 +1,6 @@
 # React.js Async Task
 
 [![Continuous Integrations](https://github.com/VitorLuizC/react-async-task/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/VitorLuizC/react-async-task/actions/workflows/continuous-integrations.yaml)
-[![Build Status](https://travis-ci.org/VitorLuizC/react-async-task.svg?branch=master)](https://travis-ci.org/VitorLuizC/react-async-task)
 [![License](https://badgen.net/github/license/VitorLuizC/react-async-task)](./LICENSE)
 [![Library minified size](https://badgen.net/bundlephobia/min/react-async-task)](https://bundlephobia.com/result?p=react-async-task)
 [![Library minified + gzipped size](https://badgen.net/bundlephobia/minzip/react-async-task)](https://bundlephobia.com/result?p=react-async-task)
