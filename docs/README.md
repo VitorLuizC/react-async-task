@@ -1,6 +1,6 @@
-[libraryNameWithSpacesAndUpperCases]
+React.js Async Task
 
-# [libraryNameWithSpacesAndUpperCases]
+# React.js Async Task
 
 ## Table of contents
 
@@ -22,7 +22,7 @@ A Branded Type for values parseable to number.
 
 #### Defined in
 
-[index.ts:4](https://github.com/VitorLuizC/typescript-library-boilerplate/blob/e351731/src/index.ts#L4)
+[index.ts:4](https://github.com/VitorLuizC/react-async-task/blob/c1503c9/src/index.ts#L4)
 
 ## Functions
 
@@ -57,4 +57,4 @@ value is NumberParseable
 
 #### Defined in
 
-[index.ts:24](https://github.com/VitorLuizC/typescript-library-boilerplate/blob/e351731/src/index.ts#L24)
+[index.ts:24](https://github.com/VitorLuizC/react-async-task/blob/c1503c9/src/index.ts#L24)
