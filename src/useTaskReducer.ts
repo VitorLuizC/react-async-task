@@ -4,7 +4,6 @@ import useMounted from './useMounted';
 type State<Result> = {
   error: Error | null;
   result: Result | null;
-  pending: boolean;
   pendingTasks: number;
 };
 
@@ -12,7 +11,6 @@ function getInitialState<Result>(): State<Result> {
   return {
     error: null,
     result: null,
-    pending: false,
     pendingTasks: 0,
   };
 }
@@ -31,17 +29,13 @@ function reducer<Result>(
     case 'started':
       return {
         ...state,
-        pending: true,
         pendingTasks: state.pendingTasks + 1,
       };
-    case 'finished': {
-      const pendingTasks = state.pendingTasks - 1;
+    case 'finished':
       return {
         ...state,
-        pending: !pendingTasks,
-        pendingTasks,
+        pendingTasks: state.pendingTasks - 1,
       };
-    }
     case 'failed':
       return {
         ...state,
