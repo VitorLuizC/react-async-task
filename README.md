@@ -1,20 +1,20 @@
-# [libraryNameWithSpacesAndUpperCases]
+# React.js Async Task
 
-[![Continuous Integrations](https://github.com/[repositoryOwner]/[repositoryName]/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/[repositoryOwner]/[repositoryName]/actions/workflows/continuous-integrations.yaml)
-[![Build Status](https://travis-ci.org/[repositoryOwner]/[repositoryName].svg?branch=master)](https://travis-ci.org/[repositoryOwner]/[repositoryName])
-[![License](https://badgen.net/github/license/[repositoryOwner]/[repositoryName])](./LICENSE)
-[![Library minified size](https://badgen.net/bundlephobia/min/[libraryName])](https://bundlephobia.com/result?p=[libraryName])
-[![Library minified + gzipped size](https://badgen.net/bundlephobia/minzip/[libraryName])](https://bundlephobia.com/result?p=[libraryName])
+[![Continuous Integrations](https://github.com/VitorLuizC/react-async-task/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/VitorLuizC/react-async-task/actions/workflows/continuous-integrations.yaml)
+[![Build Status](https://travis-ci.org/VitorLuizC/react-async-task.svg?branch=master)](https://travis-ci.org/VitorLuizC/react-async-task)
+[![License](https://badgen.net/github/license/VitorLuizC/react-async-task)](./LICENSE)
+[![Library minified size](https://badgen.net/bundlephobia/min/react-async-task)](https://bundlephobia.com/result?p=react-async-task)
+[![Library minified + gzipped size](https://badgen.net/bundlephobia/minzip/react-async-task)](https://bundlephobia.com/result?p=react-async-task)
 
 ## Installation
 
 This library is published in the NPM registry and can be installed using any compatible package manager.
 
 ```sh
-npm install [libraryName] --save
+npm install react-async-task --save
 
 # For Yarn, use the command below.
-yarn add [libraryName]
+yarn add react-async-task
 ```
 
 ### Installation from CDN
@@ -23,14 +23,14 @@ This module has an UMD bundle available through JSDelivr and Unpkg CDNs.
 
 ```html
 <!-- For UNPKG use the code below. -->
-<script src="https://unpkg.com/[libraryName]"></script>
+<script src="https://unpkg.com/react-async-task"></script>
 
 <!-- For JSDelivr use the code below. -->
-<script src="https://cdn.jsdelivr.net/npm/[libraryName]"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-async-task"></script>
 
 <script>
-  // UMD module is exposed through the "[libraryCamelCaseName]" global variable.
-  console.log([libraryCamelCaseName]);
+  // UMD module is exposed through the "ReactAsyncTask" global variable.
+  console.log(ReactAsyncTask);
 </script>
 ```
 
