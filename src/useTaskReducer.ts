@@ -1,57 +1,6 @@
 import { Dispatch, useCallback, useMemo, useReducer } from 'react';
+import { Action, getInitialState, Reducer, reducer, State } from './store';
 import useMounted from './useMounted';
-
-type State<Result> = {
-  error: Error | null;
-  result: Result | null;
-  pendingTasks: number;
-};
-
-function getInitialState<Result>(): State<Result> {
-  return {
-    error: null,
-    result: null,
-    pendingTasks: 0,
-  };
-}
-
-type Action<Result> =
-  | { type: 'started' }
-  | { type: 'finished' }
-  | { type: 'failed'; error: Error }
-  | { type: 'completed'; result: Result };
-
-function reducer<Result>(
-  state: State<Result>,
-  action: Action<Result>,
-): State<Result> {
-  switch (action.type) {
-    case 'started':
-      return {
-        ...state,
-        pendingTasks: state.pendingTasks + 1,
-      };
-    case 'finished':
-      return {
-        ...state,
-        pendingTasks: state.pendingTasks - 1,
-      };
-    case 'failed':
-      return {
-        ...state,
-        error: action.error,
-        result: null,
-      };
-    case 'completed':
-      return {
-        ...state,
-        error: null,
-        result: action.result,
-      };
-    default:
-      throw new Error("An invalid action was dispatched to 'useTaskReducer'.");
-  }
-}
 
 export type UseTaskReducerResult<Result> = readonly [
   state: State<Result>,
@@ -61,16 +10,18 @@ export type UseTaskReducerResult<Result> = readonly [
 function useTaskReducer<Result>(): UseTaskReducerResult<Result> {
   const mounted = useMounted();
 
-  // eslint-disable-next-line prettier/prettier
-  const initialState = useMemo(getInitialState<Result>, []);
+  const initialState = useMemo<State<Result>>(getInitialState, []);
 
-  const [state, dispatch] = useReducer(reducer<Result>, initialState);
+  const [state, dispatch] = useReducer<Reducer<Result>>(reducer, initialState);
 
-  const dispatchWhenMounted = useCallback((action: Action<Result>) => {
-    if (mounted()) {
-      dispatch(action);
-    }
-  }, [mounted, dispatch]);
+  const dispatchWhenMounted = useCallback(
+    (action: Action<Result>) => {
+      if (mounted()) {
+        dispatch(action);
+      }
+    },
+    [mounted, dispatch],
+  );
 
   return [state, dispatchWhenMounted];
 }
