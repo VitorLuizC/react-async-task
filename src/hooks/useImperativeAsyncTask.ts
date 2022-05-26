@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useReducer } from 'react';
 import type AsyncTask from './AsyncTask';
 import isAbortError from './isAbortError';
-import { ActionType, getInitialState, reducer, Reducer, State } from '../store';
+import { ActionType, getInitialState, reducer } from '../store';
 import useAbortController from './useAbortController';
 
 export type ImperativeAsyncTask<Result> = Readonly<{
@@ -14,9 +14,11 @@ export type ImperativeAsyncTask<Result> = Readonly<{
 function useImperativeAsyncTask<Result>(): ImperativeAsyncTask<Result> {
   const { signal } = useAbortController();
 
-  const initialState = useMemo<State<Result>>(getInitialState, []);
+  // Prettier doesn't yet support instatiantion expressions.
+  // eslint-disable-next-line prettier/prettier
+  const initialState = useMemo(getInitialState<Result>, []);
 
-  const [state, dispatch] = useReducer<Reducer<Result>>(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer<Result>, initialState);
 
   const executeTask = useCallback(async (task: AsyncTask<Result>) => {
     dispatch({ type: ActionType.STARTED });

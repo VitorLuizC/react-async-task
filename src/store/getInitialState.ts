@@ -1,7 +1,7 @@
-import type { State } from './types';
+import type State from './State';
 
 /** Get the initial state for the store. */
-function getInitialState<Result>(): State<Result> {
+function getInitialState<T>(): State<T> {
   return {
     error: null,
     result: null,

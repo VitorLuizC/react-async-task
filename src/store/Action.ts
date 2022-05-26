@@ -1,4 +1,4 @@
-import type ActionType from '../ActionType';
+import type ActionType from './ActionType';
 
 /** Union between the store's actions. */
 type Action<Result> =

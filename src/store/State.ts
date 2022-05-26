@@ -1,4 +1,4 @@
-interface State<Result> {
+type State<Result> = {
   /** The last task error, if it was failed. */
   error: Error | null;
 
@@ -7,6 +7,6 @@ interface State<Result> {
 
   /** The number of tasks that are currently pending. */
   pendingTasks: number;
-}
+};
 
 export default State;

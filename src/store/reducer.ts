@@ -1,8 +1,8 @@
 import ActionType from './ActionType';
-import type { Reducer } from './types';
+import type State from './State';
+import type Action from './Action';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const reducer: Reducer<any> = (state, action) => {
+function reducer<T>(state: State<T>, action: Action<T>): State<T> {
   switch (action.type) {
     case ActionType.STARTED:
       return {
@@ -27,8 +27,8 @@ const reducer: Reducer<any> = (state, action) => {
         result: action.result,
       };
     default:
-      throw new Error("An invalid action was dispatched to 'useTaskReducer'.");
+      throw new Error('Invalid action type.');
   }
-};
+}
 
 export default reducer;
