@@ -5,9 +5,7 @@ import typescript2 from 'rollup-plugin-typescript2';
 
 import pkg from './package.json';
 
-/**
- * Comment with library information to be appended in the generated bundles.
- */
+/** Comment with library information to be appended in the generated bundles. */
 const banner = `/*!
  * ${pkg.name} v${pkg.version}
  * (c) ${pkg.author.name}
@@ -23,45 +21,15 @@ const banner = `/*!
 function createOutputOptions(options) {
   return {
     banner,
-    name: 'ReactAsyncTask',
     exports: 'named',
     sourcemap: true,
     ...options,
   };
 }
 
-/**
- * @type {import('rollup').RollupOptions}
- */
-const options = {
+/** @type {import('rollup').RollupOptions} */
+const baseOptions = {
   input: './src/index.ts',
-  output: [
-    createOutputOptions({
-      file: './dist/index.js',
-      format: 'commonjs',
-    }),
-    createOutputOptions({
-      file: './dist/index.cjs',
-      format: 'commonjs',
-    }),
-    createOutputOptions({
-      file: './dist/index.mjs',
-      format: 'esm',
-    }),
-    createOutputOptions({
-      file: './dist/index.esm.js',
-      format: 'esm',
-    }),
-    createOutputOptions({
-      file: './dist/index.umd.js',
-      format: 'umd',
-    }),
-    createOutputOptions({
-      file: './dist/index.umd.min.js',
-      format: 'umd',
-      plugins: [terser()],
-    }),
-  ],
   plugins: [
     typescript2({
       clean: true,
@@ -70,5 +38,49 @@ const options = {
     }),
   ],
 };
+
+/**
+ * The options array for Rollup.js.
+ * @type {import('rollup').RollupOptions[]}
+ */
+const options = [
+  {
+    ...baseOptions,
+    external: ['react', 'tslib'],
+    output: [
+      createOutputOptions({
+        file: './dist/index.cjs',
+        format: 'commonjs',
+      }),
+      createOutputOptions({
+        file: './dist/index.mjs',
+        format: 'esm',
+      }),
+    ],
+  },
+  {
+    ...baseOptions,
+    external: ['react'],
+    output: [
+      createOutputOptions({
+        file: './dist/index.iife.js',
+        name: 'ReactAsyncTask',
+        format: 'iife',
+        globals: {
+          react: 'React',
+        },
+      }),
+      createOutputOptions({
+        file: './dist/index.iife.min.js',
+        name: 'ReactAsyncTask',
+        format: 'iife',
+        globals: {
+          react: 'React',
+        },
+        plugins: [terser()],
+      }),
+    ],
+  },
+];
 
 export default options;

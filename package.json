@@ -3,19 +3,18 @@
   "version": "0.0.0",
   "description": "",
   "cdn": "dist/index.iife.min.js",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "types": "types/index.d.ts",
   "unpkg": "dist/index.iife.min.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.mjs",
   "jsdelivr": "dist/index.iife.min.js",
   "exports": {
     ".": [
       {
         "import": "./dist/index.mjs",
-        "require": "./dist/index.cjs",
-        "default": "./dist/index.js"
+        "default": "./dist/index.cjs"
       },
-      "./dist/index.js"
+      "./dist/index.cjs"
     ]
   },
   "dependencies": {

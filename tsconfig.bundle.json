@@ -5,6 +5,10 @@
     "module": "ES2020",
     "target": "ES5",
 
+    // TSLib settings.
+    "importHelpers": true,
+    "noEmitHelpers": false,
+
     // Output settings.
     "charset": "utf-8",
     "newLine": "LF",

@@ -4,11 +4,8 @@
  * Released under the MIT License.
  */
 
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ReactAsyncTask = {}, global.react));
-})(this, (function (exports, react) { 'use strict';
+var ReactAsyncTask = (function (exports, react) {
+    'use strict';
 
     /******************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -247,5 +244,7 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
-//# sourceMappingURL=index.umd.js.map
+    return exports;
+
+})({}, React);
+//# sourceMappingURL=index.iife.js.map
