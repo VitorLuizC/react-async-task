@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
 import getAbortController from './getAbortController';
-import useMounted from './useMounted';
+import useMounted from '../useMounted';
 
 export type UseAbortControllerResult = {
   abort: () => void;

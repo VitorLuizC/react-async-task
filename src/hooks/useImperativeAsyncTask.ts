@@ -2,7 +2,7 @@ import { useCallback, useMemo, useReducer } from 'react';
 import type AsyncTask from './AsyncTask';
 import isAbortError from './isAbortError';
 import { ActionType, getInitialState, reducer } from '../store';
-import useAbortController from './useAbortController';
+import useAbortController from '../useAbortController';
 
 export type ImperativeAsyncTask<Result> = Readonly<{
   error: Error | null;
