@@ -1,17 +1,17 @@
 import { useCallback, useMemo, useReducer } from 'react';
 import type AsyncTask from './AsyncTask';
 import isAbortError from './isAbortError';
-import { ActionType, getInitialState, reducer, Reducer, State } from './store';
+import { ActionType, getInitialState, reducer, Reducer, State } from '../store';
 import useAbortController from './useAbortController';
 
-export type UseImperativeAsyncTask<Result> = Readonly<{
+export type ImperativeAsyncTask<Result> = Readonly<{
   error: Error | null;
   result: Result | null;
   pending: boolean;
   executeTask: (task: AsyncTask<Result>) => Promise<void>;
 }>;
 
-function useImperativeAsyncTask<Result>(): UseImperativeAsyncTask<Result> {
+function useImperativeAsyncTask<Result>(): ImperativeAsyncTask<Result> {
   const { signal } = useAbortController();
 
   const initialState = useMemo<State<Result>>(getInitialState, []);

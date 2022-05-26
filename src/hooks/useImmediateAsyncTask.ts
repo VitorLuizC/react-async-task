@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import type AsyncTask from './AsyncTask';
 import useLazyAsyncTask from './useLazyAsyncTask';
 
-export type UseImmediateAsyncTaskResult<Result> = Readonly<{
+export type ImmediateAsyncTask<Result> = Readonly<{
   error: Error | null;
   result: Result | null;
   pending: boolean;
@@ -11,7 +11,7 @@ export type UseImmediateAsyncTaskResult<Result> = Readonly<{
 
 function useImmediateAsyncTask<Result>(
   task: AsyncTask<Result>,
-): UseImmediateAsyncTaskResult<Result> {
+): ImmediateAsyncTask<Result> {
   const firstRenderRef = useRef(true);
 
   const { error, result, pending, executeTask } = useLazyAsyncTask(task);
