@@ -2,13 +2,12 @@
   "name": "react-async-task",
   "version": "0.0.0",
   "description": "",
-  "cdn": "dist/index.umd.js",
+  "cdn": "dist/index.iife.min.js",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
-  "unpkg": "dist/index.umd.js",
+  "unpkg": "dist/index.iife.min.js",
   "module": "dist/index.esm.js",
-  "jsdelivr": "dist/index.umd.js",
-  "umd:main": "dist/index.umd.js",
+  "jsdelivr": "dist/index.iife.min.js",
   "exports": {
     ".": [
       {
@@ -18,6 +17,9 @@
       },
       "./dist/index.js"
     ]
+  },
+  "dependencies": {
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.4.1",
