@@ -1,9 +1,7 @@
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
-export type UseMountedResult = () => boolean;
-
 /** React.js hook that provides a function to check if component is mounted. */
-function useMounted(): UseMountedResult {
+function useMounted(): () => boolean {
   const mountedRef = useRef(true);
 
   useLayoutEffect(
