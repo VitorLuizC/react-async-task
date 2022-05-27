@@ -11,6 +11,7 @@ function useAsyncTaskReducer<Result>(): AsyncTaskReducer<Result> {
   const mounted = useMounted();
 
   const [state, dispatch] = useReducer(
+    // Prettier doesn't yet support instantiation expressions.
     // eslint-disable-next-line prettier/prettier
     reducer<Result>,
     useMemo(getInitialState<Result>, []),

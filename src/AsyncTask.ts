@@ -1,6 +1,4 @@
-export type AsyncTaskParams = {
-  signal?: AbortSignal;
-};
+import type AsyncTaskParams from './AsyncTaskParams';
 
 type AsyncTask<Result> = (params: AsyncTaskParams) => Promise<Result>;
 

@@ -1,6 +1,4 @@
-export { default as useLazyAsyncTask } from './hooks/useLazyAsyncTask';
+export { default as useAsyncTaskLazy } from './useAsyncTaskLazy';
 export { default as useImmediateAsyncTask } from './hooks/useImmediateAsyncTask';
-export { default as useImperativeAsyncTask } from './hooks/useImperativeAsyncTask';
-export type { LazyAsyncTask } from './hooks/useLazyAsyncTask';
+export type { AsyncTaskLazyResult } from './useAsyncTaskLazy';
 export type { ImmediateAsyncTask } from './hooks/useImmediateAsyncTask';
-export type { ImperativeAsyncTask } from './hooks/useImperativeAsyncTask';

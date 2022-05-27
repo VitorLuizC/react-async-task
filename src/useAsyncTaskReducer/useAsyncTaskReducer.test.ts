@@ -41,7 +41,7 @@ describe('useAsyncTaskReducer | integration tests', () => {
   });
 
   describe('when component unmounts', () => {
-    it("prevents memory leaks and doesn't dispatch actions", () => {
+    it('prevents memory leaks by not dispatching actions', () => {
       const { result, unmount } = renderHook(useAsyncTaskReducer);
 
       expect(result.current[0]).toEqual({

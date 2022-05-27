@@ -1,23 +1,23 @@
 import { useCallback } from 'react';
-import type AsyncTask from './AsyncTask';
 import isAbortError from './isAbortError';
 import { ActionType } from '../store';
 import useAbortController from '../useAbortController';
 import useAsyncTaskReducer from '../useAsyncTaskReducer';
+import type AsyncTask from '../AsyncTask';
 
-export type ImperativeAsyncTask<Result> = Readonly<{
+export type AsyncTaskLazyResult<Result> = Readonly<{
   error: Error | null;
   result: Result | null;
   pending: boolean;
-  executeTask: (task: AsyncTask<Result>) => Promise<void>;
+  executeAsyncTask: (task: AsyncTask<Result>) => Promise<void>;
 }>;
 
-function useImperativeAsyncTask<Result>(): ImperativeAsyncTask<Result> {
+function useAsyncTaskLazy<Result>(): AsyncTaskLazyResult<Result> {
   const { signal } = useAbortController();
 
   const [state, dispatch] = useAsyncTaskReducer<Result>();
 
-  const executeTask = useCallback(async (task: AsyncTask<Result>) => {
+  const executeAsyncTask = useCallback(async (task: AsyncTask<Result>) => {
     dispatch({ type: ActionType.STARTED });
 
     try {
@@ -38,14 +38,12 @@ function useImperativeAsyncTask<Result>(): ImperativeAsyncTask<Result> {
     }
   }, []);
 
-  const { error, result, pendingTasks } = state;
-
   return {
-    error,
-    result,
-    pending: pendingTasks > 0,
-    executeTask,
+    error: state.error,
+    result: state.result,
+    pending: state.pendingTasks > 0,
+    executeAsyncTask,
   };
 }
 
-export default useImperativeAsyncTask;
+export default useAsyncTaskLazy;
