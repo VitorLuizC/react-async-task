@@ -18,7 +18,7 @@ yarn add react-async-task
 
 ### Installation from CDN
 
-This module has an UMD bundle available through JSDelivr and Unpkg CDNs.
+This module has an IIFE bundle available through JSDelivr and Unpkg CDNs.
 
 ```html
 <!-- For UNPKG use the code below. -->
@@ -28,8 +28,12 @@ This module has an UMD bundle available through JSDelivr and Unpkg CDNs.
 <script src="https://cdn.jsdelivr.net/npm/react-async-task"></script>
 
 <script>
-  // UMD module is exposed through the "ReactAsyncTask" global variable.
-  console.log(ReactAsyncTask);
+  function useProductList() {
+    // IIFE module is exposed through the "ReactAsyncTask" global variable.
+    return ReactAsyncTask.useAsyncTask(fetchProductList);
+  }
+
+  // ...
 </script>
 ```
 
