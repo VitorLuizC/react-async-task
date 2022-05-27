@@ -4,8 +4,8 @@
  * Released under the MIT License.
  */
 
-import { __assign, __awaiter, __generator, __rest } from 'tslib';
-import { useCallback, useRef, useLayoutEffect, useState, useMemo, useReducer } from 'react';
+import { __assign, __awaiter, __generator } from 'tslib';
+import { useCallback, useRef, useLayoutEffect, useState, useReducer, useMemo } from 'react';
 
 function isAbortError(error) {
     // The environment doesn't support 'DOMException'.
@@ -26,8 +26,7 @@ var ActionType;
 })(ActionType || (ActionType = {}));
 var ActionType$1 = ActionType;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-var reducer = function (state, action) {
+function reducer(state, action) {
     switch (action.type) {
         case ActionType$1.STARTED:
             return __assign(__assign({}, state), { pendingTasks: state.pendingTasks + 1 });
@@ -38,9 +37,9 @@ var reducer = function (state, action) {
         case ActionType$1.SUCCEEDED:
             return __assign(__assign({}, state), { error: null, result: action.result });
         default:
-            throw new Error("An invalid action was dispatched to 'useTaskReducer'.");
+            throw new Error('Invalid action type.');
     }
-};
+}
 
 /** Get the initial state for the store. */
 function getInitialState() {
@@ -91,12 +90,25 @@ function useAbortController() {
     };
 }
 
-function useImperativeAsyncTask() {
+function useAsyncTaskReducer() {
+    var mounted = useMounted();
+    var _a = useReducer(
+    // Prettier doesn't yet support instantiation expressions.
+    // eslint-disable-next-line prettier/prettier
+    (reducer), useMemo((getInitialState), [])), state = _a[0], dispatch = _a[1];
+    var dispatchOnlyIfMounted = useCallback(function (action) {
+        if (mounted()) {
+            dispatch(action);
+        }
+    }, []);
+    return [state, dispatchOnlyIfMounted];
+}
+
+function useAsyncTaskLazy() {
     var _this = this;
     var signal = useAbortController().signal;
-    var initialState = useMemo(getInitialState, []);
-    var _a = useReducer(reducer, initialState), state = _a[0], dispatch = _a[1];
-    var executeTask = useCallback(function (task) { return __awaiter(_this, void 0, void 0, function () {
+    var _a = useAsyncTaskReducer(), state = _a[0], dispatch = _a[1];
+    var executeAsyncTask = useCallback(function (task) { return __awaiter(_this, void 0, void 0, function () {
         var _a, error_1;
         var _b;
         return __generator(this, function (_c) {
@@ -131,36 +143,27 @@ function useImperativeAsyncTask() {
             }
         });
     }); }, []);
-    var error = state.error, result = state.result, pendingTasks = state.pendingTasks;
     return {
-        error: error,
-        result: result,
-        pending: pendingTasks > 0,
-        executeTask: executeTask,
+        error: state.error,
+        result: state.result,
+        pending: state.pendingTasks > 0,
+        executeAsyncTask: executeAsyncTask,
     };
 }
 
-function useLazyAsyncTask(task) {
-    var _a = useImperativeAsyncTask(), executeTask = _a.executeTask, state = __rest(_a, ["executeTask"]);
-    return __assign(__assign({}, state), { executeTask: useCallback(function () { return executeTask(task); }, [task]) });
-}
-
-function useImmediateAsyncTask(task) {
+function useAsyncTask(task) {
     var firstRenderRef = useRef(true);
-    var _a = useLazyAsyncTask(task), error = _a.error, result = _a.result, pending = _a.pending, executeTask = _a.executeTask;
+    var _a = useAsyncTaskLazy(), error = _a.error, result = _a.result, pending = _a.pending, executeAsyncTask = _a.executeAsyncTask;
     useLayoutEffect(function () {
-        executeTask();
-        return function () {
-            firstRenderRef.current = false;
-        };
-    }, [executeTask]);
+        firstRenderRef.current = false;
+        executeAsyncTask(task);
+    }, [task, executeAsyncTask]);
     return {
         error: error,
         result: result,
         pending: firstRenderRef.current || pending,
-        executeTask: executeTask,
     };
 }
 
-export { useImmediateAsyncTask, useImperativeAsyncTask, useLazyAsyncTask };
+export { useAsyncTask, useAsyncTaskLazy };
 //# sourceMappingURL=index.mjs.map

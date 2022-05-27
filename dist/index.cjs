@@ -30,8 +30,7 @@ var ActionType;
 })(ActionType || (ActionType = {}));
 var ActionType$1 = ActionType;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-var reducer = function (state, action) {
+function reducer(state, action) {
     switch (action.type) {
         case ActionType$1.STARTED:
             return tslib.__assign(tslib.__assign({}, state), { pendingTasks: state.pendingTasks + 1 });
@@ -42,9 +41,9 @@ var reducer = function (state, action) {
         case ActionType$1.SUCCEEDED:
             return tslib.__assign(tslib.__assign({}, state), { error: null, result: action.result });
         default:
-            throw new Error("An invalid action was dispatched to 'useTaskReducer'.");
+            throw new Error('Invalid action type.');
     }
-};
+}
 
 /** Get the initial state for the store. */
 function getInitialState() {
@@ -95,12 +94,25 @@ function useAbortController() {
     };
 }
 
-function useImperativeAsyncTask() {
+function useAsyncTaskReducer() {
+    var mounted = useMounted();
+    var _a = react.useReducer(
+    // Prettier doesn't yet support instantiation expressions.
+    // eslint-disable-next-line prettier/prettier
+    (reducer), react.useMemo((getInitialState), [])), state = _a[0], dispatch = _a[1];
+    var dispatchOnlyIfMounted = react.useCallback(function (action) {
+        if (mounted()) {
+            dispatch(action);
+        }
+    }, []);
+    return [state, dispatchOnlyIfMounted];
+}
+
+function useAsyncTaskLazy() {
     var _this = this;
     var signal = useAbortController().signal;
-    var initialState = react.useMemo(getInitialState, []);
-    var _a = react.useReducer(reducer, initialState), state = _a[0], dispatch = _a[1];
-    var executeTask = react.useCallback(function (task) { return tslib.__awaiter(_this, void 0, void 0, function () {
+    var _a = useAsyncTaskReducer(), state = _a[0], dispatch = _a[1];
+    var executeAsyncTask = react.useCallback(function (task) { return tslib.__awaiter(_this, void 0, void 0, function () {
         var _a, error_1;
         var _b;
         return tslib.__generator(this, function (_c) {
@@ -135,38 +147,28 @@ function useImperativeAsyncTask() {
             }
         });
     }); }, []);
-    var error = state.error, result = state.result, pendingTasks = state.pendingTasks;
     return {
-        error: error,
-        result: result,
-        pending: pendingTasks > 0,
-        executeTask: executeTask,
+        error: state.error,
+        result: state.result,
+        pending: state.pendingTasks > 0,
+        executeAsyncTask: executeAsyncTask,
     };
 }
 
-function useLazyAsyncTask(task) {
-    var _a = useImperativeAsyncTask(), executeTask = _a.executeTask, state = tslib.__rest(_a, ["executeTask"]);
-    return tslib.__assign(tslib.__assign({}, state), { executeTask: react.useCallback(function () { return executeTask(task); }, [task]) });
-}
-
-function useImmediateAsyncTask(task) {
+function useAsyncTask(task) {
     var firstRenderRef = react.useRef(true);
-    var _a = useLazyAsyncTask(task), error = _a.error, result = _a.result, pending = _a.pending, executeTask = _a.executeTask;
+    var _a = useAsyncTaskLazy(), error = _a.error, result = _a.result, pending = _a.pending, executeAsyncTask = _a.executeAsyncTask;
     react.useLayoutEffect(function () {
-        executeTask();
-        return function () {
-            firstRenderRef.current = false;
-        };
-    }, [executeTask]);
+        firstRenderRef.current = false;
+        executeAsyncTask(task);
+    }, [task, executeAsyncTask]);
     return {
         error: error,
         result: result,
         pending: firstRenderRef.current || pending,
-        executeTask: executeTask,
     };
 }
 
-exports.useImmediateAsyncTask = useImmediateAsyncTask;
-exports.useImperativeAsyncTask = useImperativeAsyncTask;
-exports.useLazyAsyncTask = useLazyAsyncTask;
+exports.useAsyncTask = useAsyncTask;
+exports.useAsyncTaskLazy = useAsyncTaskLazy;
 //# sourceMappingURL=index.cjs.map

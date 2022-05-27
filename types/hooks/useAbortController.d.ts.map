@@ -1,1 +1,0 @@
-{"version":3,"file":"useAbortController.d.ts","sourceRoot":"","sources":["../../src/hooks/useAbortController.ts"],"names":[],"mappings":"AAIA,oBAAY,wBAAwB,GAAG;IACrC,KAAK,EAAE,MAAM,IAAI,CAAC;IAClB,MAAM,EAAE,WAAW,GAAG,IAAI,CAAC;CAC5B,CAAC;AAEF;;;GAGG;AACH,iBAAS,kBAAkB,IAAI,wBAAwB,CAgBtD;AAED,eAAe,kBAAkB,CAAC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"Reducer.d.ts","sourceRoot":"","sources":["../../../src/store/types/Reducer.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,SAAS,CAAC;AACjC,OAAO,KAAK,MAAM,MAAM,UAAU,CAAC;AAEnC,aAAK,OAAO,CAAC,MAAM,IAAI,CACrB,KAAK,EAAE,KAAK,CAAC,MAAM,CAAC,EACpB,MAAM,EAAE,MAAM,CAAC,MAAM,CAAC,KACnB,KAAK,CAAC,MAAM,CAAC,CAAC;AAEnB,eAAe,OAAO,CAAC"}
