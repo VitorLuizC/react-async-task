@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 
-import isAbortError from '../isAbortError';
+import isAbortError from './isAbortError';
 
 describe('isAbortError | unit tests', () => {
   describe("when environment doesn't support DOMException", () => {
